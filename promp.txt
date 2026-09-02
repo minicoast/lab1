@@ -1,0 +1,51 @@
+Actúa como un desarrollador experto en Python y redes. Genera el código fuente completo, modular y listo para ejecutar en un entorno nativo de WINDOWS para los siguientes 3 programas en Python 3:
+
+Entorno de ejecución: Windows 10/11 (Python 3.x, Npcap y Scapy instalados, ejecutado desde PowerShell/CMD como Administrador).
+
+======================================================================
+1. PROGRAMA: cesar.py (Cifrado César)
+======================================================================
+- Entrada: Argumentos vía sys.argv:
+    * sys.argv[1]: Texto a cifrar (string).
+    * sys.argv[2]: Desplazamiento (entero).
+- Comportamiento: Cifrar caracteres alfabéticos conservando mayúsculas, minúsculas, espacios y caracteres especiales.
+- Salida: Imprimir únicamente el texto cifrado.
+- Ejemplo Windows: python cesar.py "criptografia y seguridad en redes" 9
+
+======================================================================
+2. PROGRAMA: pingv4.py (Inyección Stealth ICMP desde Windows)
+======================================================================
+- Librería: Scapy (scapy.all).
+- Entrada: sys.argv[1] (texto cifrado), IP destino por defecto "8.8.8.8" o "127.0.0.1".
+- Construcción del paquete para evasión DPI (Replicando formato de payload estándar):
+    * IP Header: ID coherente e incremental en cada paquete.
+    * ICMP Header: Type=8, Code=0, ID coherente con el PID (os.getpid() & 0xFFFF), Seq number secuencial iniciando en 1.
+    * Payload ICMP (56 bytes exactos):
+        - Bytes 0x00 a 0x07 (offset 0 a 7): Timestamp simulado en formato struct.pack("<II", int(time.time()), 0).
+        - Byte 0x08: Carácter individual del string cifrado a transmitir.
+        - Bytes 0x09 a 0x0F: Padding nulo (\x00 * 7).
+        - Bytes 0x10 a 0x37: Secuencia fija estándar de bytes: bytes(range(0x10, 0x38)).
+    * Intervalo: time.sleep(0.5) entre envíos.
+    * Salida en consola: Imprimir "Sent 1 packets." por cada paquete enviado.
+- Ejemplo Windows: python pingv4.py "larycxpajorj h bnpdarmjm nw anmnb"
+
+======================================================================
+3. PROGRAMA: readv2.py (MitM, Extracción y Criptoanálisis en Windows)
+======================================================================
+- Compatibilidad Windows: Habilitar colores ANSI en CMD/PowerShell usando os.system('color') al inicio.
+- Entrada: sys.argv[1] (ruta al archivo .pcap / .pcapng).
+- Extracción:
+    * Abrir archivo con rdpcap().
+    * Filtrar paquetes ICMP Echo Request (type 8).
+    * Extraer el byte en la posición 8 del payload de cada paquete según su secuencia y reconstruir el mensaje cifrado.
+- Criptoanálisis automático:
+    * Probar desplazamientos del 1 al 25.
+    * Implementar algoritmo de puntaje en español (frecuencia de 'eaosrnid' y detección de palabras comunes).
+    * Identificar automáticamente el texto descifrado correcto y la llave.
+- Salida:
+    * Imprimir el string cifrado recuperado.
+    * Imprimir las 25 combinaciones numeradas.
+    * Resaltar ÚNICAMENTE la combinación correcta en color VERDE (\033[92m ... \033[0m).
+- Ejemplo Windows: python readv2.py cesar.pcapng
+
+Entrega los 3 scripts en bloques de código separados, completamente funcionales y con manejo de errores básico.
