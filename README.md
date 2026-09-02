@@ -199,35 +199,6 @@ Mensaje cifrado extraído: larycxpajorj h bnpdarmjm nw anmnb
 
 ---
 
-## 🌐 Cómo Subir este Proyecto a GitHub
-
-Siga estos pasos para publicar este laboratorio en su cuenta de GitHub:
-
-1. Ingrese a [https://github.com/new](https://github.com/new) y cree un nuevo repositorio (por ejemplo, con el nombre `lab1-covert-icmp-crypto`).
-   - Deje desmarcada la opción de inicializar con README (ya lo tenemos creado aquí).
-
-2. En su terminal de PowerShell en `c:\Users\marti\Desktop\lab1`, ejecute:
-
-```powershell
-# Inicializar repositorio Git
-git init
-
-# Agregar todos los archivos (el .gitignore omitirá .venv automáticamente)
-git add .
-
-# Crear el primer commit
-git commit -m "feat: implementacion inicial del laboratorio de canales encubiertos ICMP y criptoanalisis"
-
-# Renombrar rama a main
-git branch -M main
-
-# Vincular con su repositorio remoto (reemplace con su usuario y nombre de repo)
-git remote add origin https://github.com/SU_USUARIO/lab1-covert-icmp-crypto.git
-
-# Subir los cambios a GitHub
-git push -u origin main
-```
-
 ---
 
 ## ⚖️ Licencia y Aviso Académico
